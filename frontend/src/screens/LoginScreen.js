@@ -42,8 +42,8 @@ function LoginScreen({}){
     return (
         <FormContainer>
             <h1>Sign In</h1>
-            {error && <Message variant='danger'>{error}</Message>}
-            {loading && <Loader />}
+            {error && <Message variant='danger'>Email or password doesn't match</Message> }
+            {loading && <Loader /> }
             <Form onSubmit = {submitHandler}>
                 <Form.Group controlId = 'email'>
                     <Form.Label> Email Adress </Form.Label>

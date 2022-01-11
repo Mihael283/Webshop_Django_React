@@ -19,7 +19,7 @@ function ProductScreen(){
 
 
     const productDetails = useSelector(state => state.productDetails)
-    const { loading,error, product} = productDetails
+    const { loading, error, product} = productDetails
 
     useEffect(()=>{
         dispatch(listProductDetails(id))
@@ -32,8 +32,8 @@ function ProductScreen(){
     return (
         <div>
             <Link to="/" className= 'btn btn-light my-3'>Go Back</Link>
-            {loading  ?
-            <Loader/> : error ? <Message variant = "danger">{error}</Message> : (
+            {loading  ? (
+            <Loader/> ): error ? (<Message variant = "danger">{error}</Message>) : (
                 <Row>
                 <Col md = {6}>
                     <Image src={product.image} alt = {product.name}/>
@@ -83,14 +83,15 @@ function ProductScreen(){
                                 <ListGroup.Item>
                                 <Row>
                                     <Col>Qty</Col>   
-                                    <Col xs = 'auto' className='my-1'> <Form.Control as = "select" value = {qty} onChange={ (e) => setQty (e.target.value)}>
-                                        {
-                                            [...Array(product.countInStock).keys()].map((x) => (
-                                            <option key = {x+1} value = {x+1}>
-                                                {x+1}
-                                            </option>))/* Mappaj countInStock od producta */
+                                    <Col xs = 'auto' className='my-1'> 
+                                        <Form.Control as = "select" value = {qty} onChange={(e) => setQty(e.target.value)}>
+                                            {
+                                                [...Array(product.countInStock).keys()].map((x) => (
+                                                <option key = {x+1} value = {x+1}>
+                                                    {x+1}
+                                                </option>))/* Mappaj countInStock od producta */
 
-                                        }
+                                            }
                                         
                                         </Form.Control>
                                         </Col>

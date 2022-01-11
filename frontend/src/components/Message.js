@@ -1,13 +1,11 @@
 import React from 'react'
 import { Alert } from 'react-bootstrap'
 
-function Message(variant,children){
+function Message({variant,children}){
     return (
-        <div>
         <Alert variant={variant}>
             {children}
         </Alert>
-        </div>
         )
 
 }
