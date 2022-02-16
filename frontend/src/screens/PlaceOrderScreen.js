@@ -36,7 +36,7 @@ function PlaceOrderScreen(){
 
     useEffect(()=>{
         if(success){
-            navigate(`/order/${order.id}`)
+            navigate(`/orders/${order.id}`)
             dispatch({type: ORDER_CREATE_RESET})
 
         }

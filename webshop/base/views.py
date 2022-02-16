@@ -11,7 +11,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import status
 from django.contrib.auth.hashers import make_password
-
+from datetime import datetime
 
 
 
@@ -63,6 +63,24 @@ def updateUserProfile(request):
     user.save()    
     return Response(serializer.data)
 
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUser(request,pk):
+    user = User.objects.get(id=pk)
+    serializer = UserSerializer(user,many=False)
+
+    data = request.data
+    user.first_name = data['name']
+    user.email = data['email']
+    user.is_staff = data['isAdmin']
+
+    user.save()   
+
+    serializer = UserSerializer(user,many=False) 
+    return Response(serializer.data)
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getUserProfile(request):
@@ -76,6 +94,15 @@ def getUsers(request):
     users = User.objects.all()
     serializer = UserSerializer(users,many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def getUsersById(request,pk):
+    user = User.objects.get(id=pk)
+    serializer = UserSerializer(user,many=False)
+    return Response(serializer.data)
+
 
 @api_view(['GET'])
 def getProduct(request,pk):
@@ -123,3 +150,60 @@ def addOrderItems(request):
 
         serializer = OrderSerializer(order,many=False)
         return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getOrderById(request,pk):
+    user = request.user
+    
+
+    try:
+        order = Order.objects.get(id=pk)
+        if user.is_staff or order.user == user:       
+            serializer = OrderSerializer(order,many=False)
+            return Response(serializer.data)
+        else:
+            Response({'detail':'Not authorized to view this order'}, status=status.HTTP_400_BAD_REQUEST)
+    except:
+        return Response({'detail':'Order does not Exist'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateOrderToPaid(request, pk):
+    order = Order.objects.get(id=pk)
+
+    order.isPaid = True
+    order.paidAt = datetime.now()
+    order.save()
+
+    return Response('Order was paid')
+
+
+@api_view(['PUT'])
+@permission_classes([IsAdminUser])
+def updateOrderToDelivered(request, pk):
+    order = Order.objects.get(id=pk)
+
+    order.isDelivered = True
+    order.deliveredAt = datetime.now()
+    order.save()
+
+    return Response('Order was delivered')
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getMyOrders(request):
+    user = request.user
+    orders = user.order_set.all()
+    serializer = OrderSerializer(orders, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
+def deleteUser(request,pk):
+    userForDeletion = User.objects.get(id=pk)
+    userForDeletion.delete()
+    return Response('User was deleted')
