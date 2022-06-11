@@ -10,6 +10,7 @@ urlpatterns = [
     path('users/profile/update/',views.updateUserProfile, name="users-profile-update"),
     path('users/',views.getUsers, name="users"),
     path('users/delete/<str:pk>',views.deleteUser, name="user-delete"),
+    path('productlist/delete/<str:pk>',views.deleteProduct, name="product-delete"),
     
     
 
@@ -17,7 +18,9 @@ urlpatterns = [
 
 
     path('products/',views.getProducts, name="products"),
+    path('products/create/',views.createProduct, name="create-products"),
     path('products/<str:pk>',views.getProduct, name="product"),
+    path('products/update/<str:pk>',views.updateProduct, name="update-product"),
 
 
 

@@ -63,28 +63,28 @@ function ProductScreen(){
                                     <Col>
                                         Price:
                                     </Col>
-                                    <Col>
+                                    <Col xs="auto">
                                         <strong>${product.price}</strong>
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
 
-                            <ListGroup.Item>
+                            <ListGroup.Item variant="flush">
                                 <Row>
                                     <Col>
                                         Status:
                                     </Col>
-                                    <Col>
+                                    <Col xs="auto">
                                         {product.countInStock > 0 ? ' In stock ': ' Out of Stock '}
                                     </Col>
                                 </Row>
-                            </ListGroup.Item>
+                            </ListGroup.Item >
                             {product.countInStock > 0 && (
-                                <ListGroup.Item>
+                                <ListGroup.Item variant="flush">
                                 <Row>
-                                    <Col>Qty</Col>   
-                                    <Col xs = 'auto' className='my-1'> 
-                                        <Form.Control as = "select" value = {qty} onChange={(e) => setQty(e.target.value)}>
+                                    <Col>Qty:</Col>   
+                                    <Col xs="auto"> 
+                                        <Form.Control as = "select" value = {qty} onChange={(e) => setQty(e.target.value)} xs = "auto">
                                             {
                                                 [...Array(product.countInStock).keys()].map((x) => (
                                                 <option key = {x+1} value = {x+1}>
@@ -94,14 +94,19 @@ function ProductScreen(){
                                             }
                                         
                                         </Form.Control>
-                                        </Col>
+                                    </Col>
                                     
                                 </Row>
                                 </ListGroup.Item>
 
                             )}
                             <ListGroup.Item>
-                                <Button onClick = { addToCartHandler } className='btn-block' disabled={product.countInStock == 0} type='button'>ADD TO CART</Button>
+                                <Row>
+
+                                    <Col md = {6} md ={{ offset: 2}}>
+                                    <Button onClick = { addToCartHandler } className='btn-block' disabled={product.countInStock == 0} type='button'>ADD TO CART</Button>
+                                    </Col>
+                                </Row>
                             </ListGroup.Item>
 
 

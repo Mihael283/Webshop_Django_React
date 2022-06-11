@@ -16,43 +16,21 @@ function Header() {
     return (
         <div>
             <header>
-
-            <Navbar bg="light" expand="lg" collapseOnSelect>
+            <Navbar bg="light" expand="lg">
             <Container>
-                    <LinkContainer to='/'>
-                    <Navbar.Brand >SHOP_NAME</Navbar.Brand>
-                    </LinkContainer>
+                <LinkContainer to='/'>
+                    <Navbar.Brand >MIHAEL SHOP</Navbar.Brand>
+                </LinkContainer>
+                
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
-                    <LinkContainer to='/cart'>
+                <Nav className="ms-auto">
+                    <LinkContainer to='/cart' >
                         <Nav.Link>Cart</Nav.Link>
                     </LinkContainer>
 
-                    {userInfo ? (
-                        <NavDropdown title={userInfo.name} id='username'>
-                            <Container>
-                                <LinkContainer to='/profile'>
-                                    <NavDropdown.Item>
-                                        Profile
-                                    </NavDropdown.Item>
-                                </LinkContainer>
-                            </Container>
-
-                            <Container onClick={logoutHandler}>
-                                <NavDropdown.Item>
-                                    Logout
-                                </NavDropdown.Item>
-                            </Container>
-                        </NavDropdown>
-                    ):(
-                        <LinkContainer to='/login'>
-                            <Nav.Link>Login</Nav.Link> 
-                        </LinkContainer>  
-                    )}  
-
                     {userInfo && userInfo.isAdmin && (
-                        <NavDropdown title='Admin' id='adminmenue'>
+                        <NavDropdown title='Admin' id='adminmenue' >
                             <LinkContainer to='/users/'>
                                 <NavDropdown.Item>Users</NavDropdown.Item>
                             </LinkContainer>
@@ -66,7 +44,29 @@ function Header() {
                             </LinkContainer>
 
                         </NavDropdown>
-                    )}                                 
+                    )}
+
+                    {userInfo ? (
+                            <NavDropdown title={userInfo.name} id='username'>
+                                <Container>
+                                    <LinkContainer to='/profile'>
+                                        <NavDropdown.Item>
+                                            Profile
+                                        </NavDropdown.Item>
+                                    </LinkContainer>
+                                </Container>
+
+                                <Container onClick={logoutHandler}>
+                                    <NavDropdown.Item>
+                                        Logout
+                                    </NavDropdown.Item>
+                                </Container>
+                            </NavDropdown>
+                        ):(
+                            <LinkContainer to='/login'>
+                                <Nav.Link>Login</Nav.Link> 
+                            </LinkContainer>  
+                        )}   
                 </Nav>
                 </Navbar.Collapse>
             </Container>

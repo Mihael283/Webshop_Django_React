@@ -44,8 +44,9 @@ function CartScreen(){
 
     return (
         <Row>
-        <Col md={8}>
             <h1>Shopping Cart</h1>
+        <Col md={8}>
+            
             {cartItems.length === 0 ? (
                 <Message variant='info'>
                     Your cart is empty <Link to='/'>Go Back</Link>
@@ -119,9 +120,11 @@ function CartScreen(){
                         >
                             Proceed To Checkout
                         </Button>
-                    </ListGroup.Item>
+                </ListGroup.Item>
 
             </Card>
+
+            
         </Col>
     </Row>
     )

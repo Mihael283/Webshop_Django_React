@@ -110,6 +110,7 @@ def getProduct(request,pk):
     serializer = ProductSerializer(product,many=False)
     return Response(serializer.data)
 
+
 @api_view(['GET'])
 def getProducts(request):
     products= Product.objects.all()
@@ -207,3 +208,45 @@ def deleteUser(request,pk):
     userForDeletion = User.objects.get(id=pk)
     userForDeletion.delete()
     return Response('User was deleted')
+
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
+def deleteProduct(request,pk):
+    print(pk)
+    productForDeletion = Product.objects.get(_id=pk)
+    productForDeletion.delete()
+    return Response('Product was deleted')
+
+@api_view(['POST'])
+@permission_classes([IsAdminUser])
+def createProduct(request):
+    user = request.user
+    product = Product.objects.create(
+        user = user,
+        name = 'Sample_name',
+        price = 0,
+        rank = 'None',
+        type = 'None',
+        countInStock = 0,
+        description = ""
+    )
+    serializer = ProductSerializer(product,many=False)
+    return Response(serializer.data)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAdminUser])
+def updateProduct(request,pk):
+    data = request.data
+    product = Product.objects.get(_id = pk)
+   
+    product.name = data["name"]
+    product.price = data["price"]
+    product.rank = data["rank"]
+    product.type = data["type"]
+    product.countInStock = data["countInStock"]
+    product.description = data["description"]
+
+    product.save()
+    serializer = ProductSerializer(product,many=false)
+    return Response(serializer.data)

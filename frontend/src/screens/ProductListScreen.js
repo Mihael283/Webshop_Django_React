@@ -4,11 +4,12 @@ import { Table, Button,Row,Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { listProducts} from '../actions/productActions'
+import { listProducts,deleteProduct,createProduct} from '../actions/productActions'
 import { useLocation,useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faEdit, faPlus, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons'
-
+import { PRODUCT_CREATE_RESET} from '../constants/productConstants'
+import { cartReducer } from '../reducers/cartReducers'
 function ProductListScreen() {
 
     const dispatch = useDispatch()
@@ -18,27 +19,38 @@ function ProductListScreen() {
     const productList = useSelector(state => state.productList)
     const { loading, error, products } = productList
 
+    const productDelete = useSelector(state => state.productDelete)
+    const { success: successDelete } = productDelete
+
+    const productCreate = useSelector(state => state.productCreate)
+    const { success: successCreate, product: createdProduct } = productCreate
+
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
     useEffect(() => {
-        if (userInfo && userInfo.isAdmin) {
-            dispatch(listProducts())
-        } else {
+        dispatch({type: PRODUCT_CREATE_RESET})
+        if (!userInfo.isAdmin) {
             navigate('/login')
         }
 
-    }, [dispatch, userInfo])
+        if(successCreate){
+            navigate(`/admin/products/${createdProduct._id}/edit`)
+        }else{
+            dispatch(listProducts())
+        }
+
+    }, [dispatch, userInfo , successDelete, createdProduct])
 
     const deleteHandler = (id) => {
 
         if (window.confirm('Are you sure you want to delete this product?')) {
-            //delete
+            dispatch(deleteProduct(id))
         }
     }
 
-    const createProductHandler = (product) =>{
-        //smth
+    const createProductHandler = () =>{
+        dispatch(createProduct())
     }
     return (
         <div>
@@ -66,8 +78,8 @@ function ProductListScreen() {
                                         <th>ID</th>
                                         <th>NAME</th>
                                         <th>PRICE</th>
-                                        <th>CATEGORY</th>
-                                        <th>BRAND</th>
+                                        <th>RANK</th>
+                                        <th>TYPE</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -78,9 +90,8 @@ function ProductListScreen() {
                                             <td>{product._id}</td>
                                             <td>{product.name}</td>
                                             <td>${product.price}</td>
-                                            <td>{product.category}</td>
-                                            <td>{product.brand}</td>
-
+                                            <td>{product.rank}</td>
+                                            <td>{product.type}</td>
                                             <td>
                                                 <LinkContainer to={`/admin/product/${product._id}/edit`}>
                                                     <Button variant='light' className='btn-sm'>
