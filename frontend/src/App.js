@@ -14,6 +14,7 @@ import { BrowserRouter as Router, Route , Routes} from 'react-router-dom'
 import UserListScreen from './screens/UserListScreen'
 import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
+import OrderListScreen from './screens/OrderListScreen'
 
 
 
@@ -25,6 +26,7 @@ function App() {
         <main className = "py-3">
           <Container>
             <Routes>
+              
               <Route exact path="/" element ={ <HomeScreen/>}/>
               <Route exact path="/login" element ={ <LoginScreen/>}/>
               <Route exact path="/users" element ={ <UserListScreen/>}/>
@@ -33,6 +35,7 @@ function App() {
               <Route exact path="/profile" element ={ <ProfileScreen/>}/>
               <Route exact path="/payment" element ={ <PaymentScreen/>}/>
               <Route exact path="/placeorder" element ={ <PlaceOrderScreen/>}/>
+              <Route exact path="/orderlist" element ={ <OrderListScreen/>}/>
               <Route exact path="/orders/:id" element ={ <OrderScreen/>}/>
               <Route exact path="/productlist" element ={ <ProductListScreen/>}/>
               <Route exact path="/admin/product/:id/edit" element ={ <ProductEditScreen/>}/>

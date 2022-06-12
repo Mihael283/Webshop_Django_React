@@ -18,7 +18,7 @@ function Product({product}) {
 
                 <Card.Text as= "div">
                     <div className="my-3">
-                        <p>INFO FOR LATER</p>
+                        <p>{product.description}</p>
                     </div>
                 </Card.Text>
 

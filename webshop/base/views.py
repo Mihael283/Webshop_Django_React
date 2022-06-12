@@ -248,5 +248,35 @@ def updateProduct(request,pk):
     product.description = data["description"]
 
     product.save()
-    serializer = ProductSerializer(product,many=false)
+    serializer = ProductSerializer(product,many=False)
     return Response(serializer.data)
+
+@api_view(['POST'])
+def uploadImage(request):
+    data = request.data
+    product_id = data['product_id']
+    product = Product.objects.get(_id = product_id)
+
+    product.image = request.FILES.get('image')
+    product.save()
+    return Response("Image was uploaded")
+
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def getOrders(request):
+    orders = Order.objects.all()
+    serializer = OrderSerializer(orders, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateOrderToDelivered(request, pk):
+    order = Order.objects.get(id=pk)
+
+    order.isDelivered = True
+    order.deliveredAt = datetime.now()
+    order.save()
+
+    return Response('Order was delivered')

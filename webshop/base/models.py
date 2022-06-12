@@ -9,7 +9,7 @@ class Product(models.Model):
     image= models.ImageField(null=True,blank=True, default = '/No_image.png')
     rank= models.CharField(max_length = 30 , null=True, blank=True)
     type= models.CharField(max_length = 15 , null=True, blank=True)
-    description= models.TextField(null=True, blank=True)
+    description= models.TextField(null=True, blank=True ,default = 'Regular account')
     price=models.DecimalField(max_digits=5, decimal_places=2,null=True, blank=True)
     countInStock=models.IntegerField(null=True, blank=True,default=0)
     createdAt=models.DateTimeField(auto_now_add=True)
