@@ -4,7 +4,7 @@ from rest_framework import serializers
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated,IsAdminUser
 from rest_framework.response import Response
-from .models import Product,User,Order,OrderItem
+from .models import Accounts, Product,User,Order,OrderItem
 from .serializer import OrderSerializer, ProductSerializer,UserSerializer,UserSerializerWithToken
 # Create your views here.
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -173,7 +173,7 @@ def getOrderById(request,pk):
 @permission_classes([IsAuthenticated])
 def updateOrderToPaid(request, pk):
     order = Order.objects.get(id=pk)
-
+    
     order.isPaid = True
     order.paidAt = datetime.now()
     order.save()
