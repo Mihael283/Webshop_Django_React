@@ -42,3 +42,15 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+class Accounts(models.Model):
+    username = models.CharField(max_length = 40 , null=True, blank=True)
+    password = models.CharField(max_length = 40 , null=True, blank=True)
+    rank = models.CharField(max_length = 20 , null=True, blank=True)
+    type = models.CharField(max_length = 15 , null=True, blank=True)
+    qty= models.IntegerField(null=True,blank=True,default=0)
+    _id = models.AutoField(primary_key=True,editable=False)
+
+    def __str__(self):
+        return str(self._id)

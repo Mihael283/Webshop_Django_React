@@ -69,7 +69,7 @@ function OrderScreen() {
                 setSdkReady(true)
             }
         }
-    }, [dispatch,successPay])
+    }, [dispatch,successPay,successDeliver])
 
 
     const successPaymentHandler = (paymentResult) => {
@@ -78,6 +78,7 @@ function OrderScreen() {
 
     const deliverHandler = () => {
         dispatch(deliverOrder(order))
+        
     }
 
     return loading ? (
@@ -184,6 +185,11 @@ function OrderScreen() {
 
                                     
                                 </ListGroup>
+                                {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                                    <ListGroup.Item>
+                                        <Button type="button" className='btn-block' onClick={deliverHandler}>Mark order delivered</Button>
+                                    </ListGroup.Item>
+                                )}
                             </Card>
                         </Col>
                     </Row>
