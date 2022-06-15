@@ -1,7 +1,7 @@
 from django.contrib.auth import models
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Product,Order,OrderItem
+from .models import Product,Order,OrderItem,Accounts
 from rest_framework_simplejwt.tokens import RefreshToken
 
 class UserSerializer(serializers.ModelSerializer):
@@ -47,6 +47,10 @@ class OrderItemSerializer(serializers.ModelSerializer):
         model = OrderItem
         fields = '__all__'
 
+class AccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Accounts
+        fields = '__all__'
 
 class OrderSerializer(serializers.ModelSerializer):
     orderItems = serializers.SerializerMethodField(read_only=True)

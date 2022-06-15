@@ -57,8 +57,12 @@ function LoginScreen({}){
                     <Form.Control type = 'password' placeholder = 'Enter Password' value= {password} onChange={(e)=> setPassword(e.target.value)}>
                     </Form.Control>           
                 </Form.Group>
-
-                <Button type='submit' variant='primary'>Sign In</Button>
+                
+                <Form.Group>
+                    <br></br>
+                    <Button type='submit' variant='outline-dark'>Sign In</Button>
+                </Form.Group>
+                
             </Form>
 
             <Row className = 'py-3'>

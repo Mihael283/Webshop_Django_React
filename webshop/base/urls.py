@@ -29,5 +29,8 @@ urlpatterns = [
     path('orderlist/',views.getOrders, name='orders'),
     path('orders/<str:pk>/',views.getOrderById, name='user-order'),
     path('orders/<str:pk>/deliver/',views.updateOrderToDelivered, name='deliver-order'),
-    path('orders/<str:pk>/pay/',views.updateOrderToPaid, name='pay'),
+    path('orders/<str:pk>/pay/',views.updateOrderToPaidandDeliver, name='pay-deliver'),
+
+
+    #path('test/<str:pk>/',views.test, name='test'),
 ]

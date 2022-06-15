@@ -50,8 +50,18 @@ function ProductScreen(){
                         </ListGroup.Item>
 
                         <ListGroup.Item>
+                            Rank: {product.rank}
+                        </ListGroup.Item>
+
+                        <ListGroup.Item>
+                            Type: {product.type}
+                        </ListGroup.Item>
+
+                        <ListGroup.Item>
                             Description: {product.description}
                         </ListGroup.Item>
+
+
                     </ListGroup>
                 </Col>
 
