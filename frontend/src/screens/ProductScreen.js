@@ -35,8 +35,8 @@ function ProductScreen(){
             {loading  ? (
             <Loader/> ): error ? (<Message variant = "danger">{error}</Message>) : (
                 <Row>
-                <Col md = {6}>
-                    <Image src={product.image} alt = {product.name}/>
+                <Col md = {6} className="d-xl-flex justify-content-top">
+                    <Image src={product.image} alt = {product.name} style={{ width: '30rem', height: '30rem'}}/>
                 </Col>
 
                 <Col md = {3}>

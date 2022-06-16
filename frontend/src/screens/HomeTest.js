@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch,useSelector } from 'react-redux'
-import { Row,Card,Container,Stack ,Image} from 'react-bootstrap'
+import { Row,Container,Image,Stack,Card} from 'react-bootstrap'
 import Col from 'react-bootstrap/Col'
 import Product from '../components/Product'
 import Loader from '../components/Loader'
@@ -8,8 +8,7 @@ import Message from '../components/Message'
 import axios from 'axios'
 import { listProducts } from '../actions/productActions'
 
-function HomeScreen(){
-    
+function HomeTest(){
     const dispatch = useDispatch()
     const productList = useSelector((state) => state.productList)
     const { error,loading,products} = productList
@@ -24,7 +23,7 @@ function HomeScreen(){
 
     return (
         <div>
-            <Row className= "justify-content-center">
+                <Row className= "justify-content-center">
                     <Col className="lg-2 d-none d-xl-block"> 
                     <Image style={{ width: '18rem', height: '18rem'}} src="https://i.postimg.cc/Y0NmwGy1/pngaaa-com-677685-1.png" />
                     </Col>
@@ -72,30 +71,9 @@ function HomeScreen(){
                         </Card>
                     </Col>
                 </Row>
-            <br/>
-            <br/>
-            <br/>
-            <Col className="text-center" ><h3>Our products:</h3></Col>
-            {loading ? (
-                <Loader/>
-            ) : error ? (
-                <Message variant="danger">{error}</Message>
-            ) : (
-                <h1>
-                <Row>
-                    {products.map((product) => (
-                        <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                            <Product product={product}/>
-                        </Col>
-
-                    ))}
-                </Row>
-                </h1>
-            )
-
-            }
+                
         </div>
     );
 }
 
-export default HomeScreen
+export default HomeTest
